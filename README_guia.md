@@ -190,3 +190,31 @@ COLOCANDO O PROJETO NO GIT HUB (necesari oter o git isntalado pc etc)
 
 abra o terinal rode o - git init
 depois rode um - dit add . (o ponto que ddizer todos os arquivos)
+depois  rode - git commit -m "first commit"
+seguindo - git remote add origin https://github.com/yuriarcant/Arcant-Flix.git
+git push -u origin main
+
+Para fazer o deploy no railway temos q modificar algumas coisas e tbm installar algumas bibliotecas, e em todo deploy precisamos de um arquivo com todas as bibliotecas utilziadas nele. a maioria dessas alteraçoes vai ser no settings do nosso porjeto e  irei lsitar eles aqui em baixo.
+
+é importante ressaltar que quando se faz um deploy é muito  provavel que voce tera que ajeitar diversas coisas no seu projeto que esta no seu computador
+
+
+1- debug = false , porque se deixar ele igual a true ele pode mostrar algumas informaçoes que nao deveriam ser observadas por utilizadores do seu projeto
+
+2-ALLOWED_HOSTS, ele permite quais servidores vai rodar nosso codigo, o correto seria colocar o link do seu site, mas vamos coocar um *  que permitira rodas em todos os servidores, mas ddps de colocar o site no ar é so colocar o link dos eu site
+
+3- Instalar 2 bibliotecas gunicorn que permite gerenciar as requisiçoes com nosso sistema e tbm vamos instalar o whitenoise que permite gerenciar nossos arquivos estaticos tipo imagens , css e etc.
+
+4- Tambem vamos criar um arquivo com o nome Procfile, que utiliza o gunicorn que instalamos acima, nese arquivo temos q por o migrat e tbm falar a pasta que ta o wsgi.
+
+5- Agora voltando ao nosso arquivos settings temos que mecher no static, pq baixamos aquela nova biblioteca whitenoise, onde a biblioteca pede para  colocar no  MIDDLEWARE o  "whitenoise.middleware.WhiteNoiseMiddleware", logo abixo da linha "django.middleware.security.SecurityMiddleware". Alem disso tbm precisamos ter uma variavel static_root
+
+7- Continuando no nosso arquivo settings temos q ir para nosso banco de dados , pq estamos utilizanddo um local no nosso pc, e pra por o site mno ar utilizamos um banco de dados online. pra isso temos que instalar a biblioteca dj-database-url, que vai permitir o djandgo conectar com o data base url. e alem dessa biblioteca temos q stalar a psycopg2 pq nosso banco de dados online e um postgresql
+
+Agora vamos importar o dj-database-ur  no nosso settings, e la no nosso banco online ela temm uma variavel de ambiente chamada DATABASE_URL  que vamos charmar ela para o nosso settings atras da biblioteca os, e vamos fazer que se tiver esse daddtabase_url ele usa o banco de daos online invez o local
+
+
+6- Tambem temos que dizer para o servidor qual a versao de python que estamos utilizando  no meu caso 3.12.2, só rodar python no  terminal q ele mostra, vamos por nossa versao em um arquivo chamdo runtime.txt
+
+
+7- rodar um-  pip freeze > requirements.txt , que vai gerar um arquivo com todas as bibliotecas presente no projeto, caso futuramente voce faça alteração e use outras bibliotecas  temq  rodar ese comando novamente
