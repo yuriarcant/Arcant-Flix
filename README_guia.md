@@ -218,3 +218,10 @@ Agora vamos importar o dj-database-ur  no nosso settings, e la no nosso banco on
 
 
 7- rodar um-  pip freeze > requirements.txt , que vai gerar um arquivo com todas as bibliotecas presente no projeto, caso futuramente voce faça alteração e use outras bibliotecas  temq  rodar ese comando novamente
+
+
+
+obs: lembrando que ao fazer deploy do projeto é importante verificar cada opção que o seu projeto possui para ver se esta tudo funcionanddddo corretamente. e importante tbm quandddo por o projeto no ar a nossa secret_key que fica no site fique em um local segura , normalmente nas areas de variaveis de ambiente do servidor que voce escolheu voce pode criar uma e dps puxar para o seu projeto, para n fica visivel, nos projetos aqui e acima a gente usa muito o import secrets, depos printa um secrets.token_hex(numero de digitos), isso vai criar um token aleatorio ai voce poe ese valor como sua secrety key.
+
+
+lembrando que nosso app ao ir pro ar ele nao tera filme nenhum e nos n tratamos isso entao quando fizer o ligin com um usuario, vai da rum erro, e pra adicionar um filme precisariamos de um super host, pq o super host que criamos so funciona aqui no ambiente local, para isso , no nosso arquivo apps.py temos que fazer uma função na nosa class def ready que vai utilizar variaveis de ambiente que criaremos no nosso banco de dados online, e essas variaveis seria um gmail e uma senha para o super  host. vou deixar um exemplo cometado no arquivo

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +21,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-78&sl&p6#*nm#c@f^ltglcl5)19p($yf^d@j1_@_oj!g-@7sq)"
+
+TOKEN_CSRF = os.getenv('TOKEN_CSRF')
+if TOKEN_CSRF:
+    SECRET_KEY = TOKEN_CSRF
+    #CSRF_TRUSTEDD_ORIGINS= [LINK DO SEU SITE ENTRE "", com htpps e no final n pode ter barra], isso faz que so aceite requisiçoes vindo do ddominio do seu site
+else:
+    SECRET_KEY = "django-insecure-78&sl&p6#*nm#c@f^ltglcl5)19p($yf^d@j1_@_oj!g-@7sq)"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
+#lembrando q aqui e interessante por link do site sem https, tbm por o localhost e o id que é aquele  ip q aparece quando abrimos o nosso site no computador e no navegador fica por exemplo 127.0 0.1
 
 
 # Application definition
@@ -88,7 +96,6 @@ DATABASES = {
 }
 
 import dj_database_url
-import os
 
 DATABASE_URL=  os.getenv('DATABASE_URL')
 if DATABASE_URL:
